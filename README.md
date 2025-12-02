@@ -54,23 +54,6 @@ This project was built as part of the Forward Deployed Engineer (FDE)  simulates
 - **Vercel** (Backend + Frontend)  
 
 ---
-** Folder Structure**
-root/
-│── backend/
-│   ├── app.js
-│   ├── routes/
-│   ├── controllers/
-│   ├── services/
-│   ├── middlewares/
-│   └── models/
-│
-└── frontend/
-    ├── pages/
-    ├── components/
-    ├── charts/
-    ├── services/
-    └── styles/
-
 
 ---
 
@@ -136,13 +119,13 @@ POST /api/tenants/register
 POST /api/tenants/login
 POST /api/tenants/connect-shopify
 
-### **Ingestion Endpoints**
+Ingestion Endpoints
 POST /api/ingest/customers?tenant_id=
 POST /api/ingest/orders?tenant_id=
 POST /api/ingest/products?tenant_id=
 POST /api/ingest/events?tenant_id=
 
-### **Analytics**
+Analytics
 GET /api/analytics/summary?tenant_id=
 GET /api/analytics/orders-by-date?tenant_id=&start=&end=
 GET /api/analytics/top-customers?tenant_id=
