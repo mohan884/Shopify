@@ -54,6 +54,97 @@ This project was built as part of the Forward Deployed Engineer (FDE)  simulates
 - **Vercel** (Backend + Frontend)  
 
 ---
+** Folder Structure**
+root/
+│── backend/
+│   ├── app.js
+│   ├── routes/
+│   ├── controllers/
+│   ├── services/
+│   ├── middlewares/
+│   └── models/
+│
+└── frontend/
+    ├── pages/
+    ├── components/
+    ├── charts/
+    ├── services/
+    └── styles/
 
-# 🏗️ System Architecture
+
+---
+
+#  Database Schema (PostgreSQL)
+
+## **tenants**
+| column | type | description |
+|-------|------|-------------|
+| id | SERIAL PK | tenant id |
+| store_name | text | Name of Shopify store |
+| shopify_store_domain | text | my-store.myshopify.com |
+| shopify_access_token | text | Private access token |
+| created_at | timestamp | Registered time |
+
+## **customers**
+| column | type |
+|--------|-------|
+| id | SERIAL PK |
+| tenant_id | FK → tenants |
+| shopify_customer_id | bigint |
+| email | text |
+| first_name | text |
+| last_name | text |
+| total_spent | numeric |
+| updated_at | timestamp |
+
+## **products**
+| column | type |
+|--------|-------|
+| id | SERIAL PK |
+| tenant_id | FK |
+| shopify_product_id | bigint |
+| title | text |
+| price | numeric |
+| created_at | timestamp |
+
+## **orders**
+| column | type |
+|--------|-------|
+| id | SERIAL PK |
+| tenant_id | FK |
+| shopify_order_id | bigint |
+| customer_id | bigint |
+| total_price | numeric |
+| created_at | timestamp |
+
+## **events**
+| column | type |
+|--------|-------|
+| id | SERIAL PK |
+| tenant_id | FK |
+| type | text |
+| data | jsonb |
+| created_at | timestamp |
+
+---
+
+#  API Documentation
+
+### **Tenant Onboarding**
+```http
+POST /api/tenants/register
+POST /api/tenants/login
+POST /api/tenants/connect-shopify
+
+### **Ingestion Endpoints**
+POST /api/ingest/customers?tenant_id=
+POST /api/ingest/orders?tenant_id=
+POST /api/ingest/products?tenant_id=
+POST /api/ingest/events?tenant_id=
+
+### **Analytics**
+GET /api/analytics/summary?tenant_id=
+GET /api/analytics/orders-by-date?tenant_id=&start=&end=
+GET /api/analytics/top-customers?tenant_id=
+
 
