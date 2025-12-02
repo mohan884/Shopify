@@ -114,20 +114,33 @@ This project was built as part of the Forward Deployed Engineer (FDE)  simulates
 #  API Documentation
 
 ### **Tenant Onboarding**
-```http
+API Endpoints
+### Tenant Onboarding
 POST /api/tenants/register
 POST /api/tenants/login
 POST /api/tenants/connect-shopify
 
-Ingestion Endpoints
+### Ingestion Endpoints
 POST /api/ingest/customers?tenant_id=
 POST /api/ingest/orders?tenant_id=
 POST /api/ingest/products?tenant_id=
 POST /api/ingest/events?tenant_id=
 
-Analytics
+### Analytics Endpoints
 GET /api/analytics/summary?tenant_id=
 GET /api/analytics/orders-by-date?tenant_id=&start=&end=
 GET /api/analytics/top-customers?tenant_id=
 
 
+---
+
+**Most Challenging Problem I Solved Recently**
+ 
+One of the most challenging problems I solved recently was building a multi-tenant data ingestion system for Shopify stores, where each tenant’s data had to stay completely isolated while still using a shared database and API layer.
+The hardest part was designing the ingestion workflow in a way that handled Shopify’s pagination, rate limits, and inconsistent object fields without data loss.
+I had to rethink my architecture a few times—especially around how tenants authenticate and how ingestion jobs run independently—before landing on a clean tenant-aware model design.
+Debugging webhook and API responses was also tricky, because Shopify sometimes returns partial data or delayed updates, which forced me to add validation and retry mechanisms.
+Once the ingestion layer stabilized, I built the insights dashboard on top of it, which immediately exposed missing joins and edge cases in the data.
+Although it took several iterations, this problem taught me how to design isolation, reliability, and real-world API integrations more thoughtfully.
+
+This project is still evolving. Additional features and documentation will be added shortly.
